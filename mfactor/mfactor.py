@@ -206,7 +206,7 @@ class MFactor:
             reg = sm.OLS(endog=df[factor].values, 
                          exog=sm.add_constant(tmp_regress_to)).fit()
             resid = reg.resid
-            return (resid-resid.mean())/resid.std()
+            return  pd.Series((resid-resid.mean())/resid.std(), index=df.index)
 
         for factor in target_factor:
             self.data.loc[:,factor] = self.data.groupby('date', 
